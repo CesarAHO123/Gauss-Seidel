@@ -36,7 +36,7 @@ def gauss_seidel(A, b, x0, max_iter, min_error):
     # Verifica si se ha alcanzado el umbral de error mínimo
     if error <= min_error:
         print("\nEl método ha obtenido un resultado con un error menor al "+ str(min_error*100) +"% después de "+str(iter_count) +" iteraciones.")
-        print("Resultado: "+ str(x) + ". En la iteracion "+ str(iter_count)+" con un error de " + str(error*100) + "%")
+        print("Resultado:"+ str(x) + ". En la iteracion "+ str(iter_count)+" con un error de " + str(error*100) + "%\n")
         return x, iter_count
     else:
         print("\nEl método de Gauss-Seidel no llega a ningún resultado antes de " +str(iter_count) + " iteraciones.")
