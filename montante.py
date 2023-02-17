@@ -45,10 +45,10 @@ if __name__ == "__main__":
     print("Bienvenido al sistema para obtener soluciones de sistemas de ecuaciones por medio de el metodo Montante.")
     print("Ingresa el numero de ecuaciones:")
     n=int(input())
-    A=np.zeros((n+1,n+1))
+    A=np.zeros((n,n+1))
     for i in range(n):
         for j in range(n):
-            print("Ingrese el valor de la incognita "+ str(j+1) + " en la ecuacion "+ str(i+1) +": [" + str(i+1) +"," + str(j+1) + "]:")
+            print("Ingrese el coeficiente de la incognita "+ str(j+1) + " en la ecuacion "+ str(i+1) +": [" + str(i+1) +"," + str(j+1) + "]:")
             A[i][j]=float(input())
             if j+1==n:
                 print("Ingrese el termino independiente de la ecuacion "+ str(i+1) +" [" + str(i+1) +"," + str(j+2) + "]:")
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     #Imprimimos la matriz inicial
     print("\nMatriz inicial.")
     imprimir_matriz(A, n)
-
-    if (met_montante(A, n) == 1):
+    temp=met_montante(A, n)
+    if (temp==1):
         print("El sistema de ecuaciones no tiene solución.")
         sys.exit()
 
