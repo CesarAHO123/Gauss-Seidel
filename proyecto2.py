@@ -39,27 +39,11 @@ def newton_raphson(f, x0, tol, max_iter):
 if __name__ == "__main__":
     print("Bienvenido al sistema para la raiz de una ecuacion por ----")
   
-    print("Ingresa la ecuacion")
+    print("Ingresa la ecuacion:")
     f=input()
 
-    #f=""
     aux=0
-    #for i in range(n+1):
-    #    if i!=n:
-    #        print("Ingrese el coeficiente de x exponente " + str(n-i)+ ":")
-    #    else:
-    #        print("Ingrese el termino independiente:")
-    #    
-    #    aux=int(input())
-    #    if aux>=0:
-    #        if i==0:
-    #            f+=str(aux)+"*x**"+str(n-i)
-    #        else:
-    #            f+="+"+str(aux)+"*x**"+str(n-i)
-    #    else:
-    #        f+=str(aux)+"*x**"+str(n-i)
-    #print(f)
-   # f = "x**3 - 2*x**2 + 3*x - 1"
+
     x0 = 1.5
     tol = 1e-6
     max_iter = 100
