@@ -1,53 +1,61 @@
 import sympy as sym
 
-def newton_raphson(f, x0, tol, max_iter):
-    """
-    Implementación del método de Newton-Raphson para encontrar la raíz de una función.
-
-    :param f: La función a la que se le buscará la raíz.
-    :param x0: Valor inicial para comenzar el método.
-    :param tol: La tolerancia o error aceptable para terminar el método.
-    :param max_iter: El número máximo de iteraciones permitidas antes de terminar el método.
-    :return: La aproximación a la raíz de la función.
-    """
-    # Simbolizamos la función y obtenemos su derivada
+def bisection_method(f, xi, xu, tol, max_iter):
+    # Simbolizamos la función
     x = sym.Symbol('x')
     fx = sym.sympify(f)
-    dfx = sym.diff(fx, x)
-    print(fx)
-    print(dfx)
-
-    # Convertimos la función simbolizada y su derivada a funciones numéricas
+    # Convertimos la función simbolizada a una función numérica
     f = sym.lambdify(x, fx)
-    df = sym.lambdify(x, dfx)
-
-    # Comenzamos el método de Newton-Raphson
-    x = x0
-    for i in range(max_iter):
-        fx = f(x)
-        if abs(fx) < tol:
-            return x
-        dfx = df(x)
-        if dfx == 0:
-            print("Error: la derivada de la función es cero.")
-            return None
-        x = x - fx / dfx
+    # Comprobamos que la función tenga signos diferentes en los extremos del intervalo
+    if f(xi) * f(xu) >= 0:
+        print("Error: la función no cambia de signo en el intervalo dado.")
+        return None
+    # Inicializamos los valores iniciales para el método
+    i = 1
+    xr = (xi + xu) / 2
+    xr_old = xr
+    # Comenzamos el método de bisección
+    while i <= max_iter:
+        xr = (xi + xu) / 2
+        fxr = f(xr)
+        if i==1:
+            ea = 100.00
+        else:
+            ea = abs((xr - xr_old) / xr) if xr != 0 else float('inf')
+        print("Iteración {}: xr = {}, error aproximado = {}".format(i, xr, ea))
+        if ea < tol:
+            return xr
+        if f(xi) * fxr < 0:
+            xu = xr
+        elif f(xi) * fxr > 0:
+            xi = xr
+        else:
+            return xr
+        xr_old = xr
+        i += 1
     print("Error: número máximo de iteraciones alcanzado.")
     return None
 
 
 if __name__ == "__main__":
-    print("Bienvenido al sistema para la raiz de una ecuacion por ----")
-  
-    print("Ingresa la ecuacion:")
-    f=input()
+    print("Bienvenido al sistema para encontrar la raíz de una función por el método de bisección.")
+    while True:
+        print("Ingrese la función:")
+        f = input()
+        print("Ingrese el extremo izquierdo del intervalo:")
+        xi = float(input())
+        print("Ingrese el extremo derecho del intervalo:")
+        xu = float(input())
+        print("Ingrese la tolerancia:")
+        tol = float(input())
+        max_iter = 1000
 
-    aux=0
+        root = bisection_method(f, xi, xu, tol, max_iter)
 
-    x0 = 1.5
-    tol = 1e-6
-    max_iter = 100
+        if root is not None:
+            print("La raíz de la función es:", root)
 
-    root = newton_raphson(f, x0, tol, max_iter)
-
-    print("La raíz de la función es:", root)
+        print("¿Desea ingresar otra ecuación? (s/n)")
+        answer = input().lower()
+        if answer != 's':
+            break
