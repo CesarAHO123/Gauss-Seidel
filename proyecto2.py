@@ -4,6 +4,7 @@ def bisection_method(f, xi, xu, tol, max_iter):
     # Simbolizamos la función
     x = sym.Symbol('x')
     fx = sym.sympify(f)
+    tol=tol/100
     # Convertimos la función simbolizada a una función numérica
     f = sym.lambdify(x, fx)
     # Comprobamos que la función tenga signos diferentes en los extremos del intervalo
@@ -22,7 +23,7 @@ def bisection_method(f, xi, xu, tol, max_iter):
             ea = 100.00
         else:
             ea = abs((xr - xr_old) / xr) if xr != 0 else float('inf')
-        print("Iteración {}: xr = {}, error aproximado = {}".format(i, xr, ea))
+        print("Iteración {}: xr = {}, error aproximado = {}%".format(i, xr, ea*100))
         if ea < tol:
             return xr
         if f(xi) * fxr < 0:
